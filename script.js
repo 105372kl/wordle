@@ -37,7 +37,7 @@ for (var i = 0; i < btns.length; i++) {
 */
 var wordGuess = document.getElementById("wordGuess");
 var btns = wordGuess.getElementsByClassName("guess");
-for (var i = 0; i < btns.length; i++) {
+for (let i = 0; i < btns.length; i++) {
   btns[i].addEventListener("click", function() {
     var current = document.getElementsByClassName("active");
     if (current.length > 0) {
@@ -46,19 +46,7 @@ for (var i = 0; i < btns.length; i++) {
     this.className += " active";
   });
 }
-/* Get value on mouseout: 
- * https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseout_event
- */
 
-test.addEventListener("mouseout", (event) => {
-  // highlight the mouseout target
-  event.target.style.color = "orange";
-
-  // reset the color after a short delay
-  setTimeout(() => {
-    event.target.style.color = "";
-  }, 500);
-}, false);
 /* https://isotropic.co/how-to-fix-cannot-read-property-style-of-null-in-javascript/
  * this is because the script references were ABOVE the HTML code.
  */
@@ -164,7 +152,7 @@ createAnswer()
 
 //Extracts values from User input in dropdown menus
 
-function guessInput(event) {
+/*function guessInput(event) {
   let keyPress = event.key;
   if (keyPress == "Backspace") {
     for (let i = 5; i => 1; i--) {
@@ -203,9 +191,16 @@ function guessInput(event) {
     //console.log(guessArray);
   }
 }
-
+*/
 function enter() {
-  if (winFlag == true) {
+  for (let i = 1; i <= 5; i++) {
+    let key = document.getElementById("guess" + i);
+    guessArray.push(key);
+  }
+  console.log(guessArray);
+  
+}
+  /*if (winFlag == true) {
     enterInput();
   }
   else if (guessArray.length != 5) {
@@ -214,7 +209,7 @@ function enter() {
   else {
     let word = guessArray.join("");
     if (dictionary.indexOf(word) == -1 && answersCollection.indexOf(word) == -1) {
-      alert(guessArray.toString() +" Not a word!");
+      alert(guessArray.toString() + " Not a word!");
       console.log("Guess: " + word);
     }
     else {
@@ -229,6 +224,7 @@ function enter() {
     }
   }
 }
+*/
 
 function click(value) {
   alert(value);
