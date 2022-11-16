@@ -195,7 +195,7 @@ createAnswer()
 function enter() {
   for (let i = 1; i <= 5; i++) {
     let key = document.getElementById("guess" + i);
-    guessArray.push(key);
+    guessArray.push(key.value);
   }
   console.log(guessArray);
   
