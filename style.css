@@ -140,6 +140,6 @@ ol li ul li {
 }
 
 .active {
-  border:1px solid magenta;
-  background-color:antiquewhite!important;
+  border:2px solid white;
+  background-color: #aee6e6;
 }

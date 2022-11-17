@@ -55,6 +55,7 @@ for (let i = 0; i < btns.length; i++) {
 function enterInput() {
 
   if (winFlag == true) {
+    guessArray = [];
     clear();
     turnCount = 0;
     winFlag = false;
@@ -63,19 +64,19 @@ function enterInput() {
   }
   else {
     turnCount++;
-  }
 
-  console.log("Turn count: " + turnCount);
-  let guessClone = guessArray.slice(); // moved from guessInput @mbm
-  console.log(JSON.stringify(guessClone)); //why does alert work, but log returns a null value?
-  let feedback = giveFeedback(guessClone); // calls function and receives array @mbm
-  // feedback.push("Turns: "+turnCount); @removed per refactoring
-  let winCounter = 0;
-  for (let i = 0; i <= 4; i++) {
-    if (feedback[i][1] == "b") { winCounter++; }
+    console.log("Turn count: " + turnCount);
+    let guessClone = guessArray.slice(); // moved from guessInput @mbm
+    console.log(JSON.stringify(guessClone)); //why does alert work, but log returns a null value?
+    let feedback = giveFeedback(guessClone); // calls function and receives array @mbm
+    // feedback.push("Turns: "+turnCount); @removed per refactoring
+    let winCounter = 0;
+    displayGuessRecord(feedback);
+    for (let i = 0; i <= 4; i++) {
+      if (feedback[i][1] == "b") { winCounter++; }
+    }
+    if (winCounter == 5) { win(); }
   }
-  if (winCounter == 5) { win(); }
-  displayGuessRecord(feedback);
 }
 
 function win() {
@@ -193,38 +194,51 @@ createAnswer()
 }
 */
 function enter() {
+  let notEnough = false;
   for (let i = 1; i <= 5; i++) {
     let key = document.getElementById("guess" + i);
-    guessArray.push(key.value);
+    if (key.value == "") {
+      notEnough = true;
+    }
+    if (key.value == key.value.toUpperCase()) {
+      guessArray.push(key.value.toLowerCase());
+    }
+    else {
+      guessArray.push(key.value);
+    }
   }
-  console.log(guessArray);
-  
-}
-  /*if (winFlag == true) {
+  //console.log(guessArray);
+  if (winFlag == true) {
     enterInput();
   }
-  else if (guessArray.length != 5) {
-    alert(guessArray.toString() + " Not Enough Letters!");
+  else if (notEnough == true) {
+    alert(/*guessArray.toString() + */" Not Enough Letters!");
+    guessArray = [];
   }
   else {
     let word = guessArray.join("");
     if (dictionary.indexOf(word) == -1 && answersCollection.indexOf(word) == -1) {
-      alert(guessArray.toString() + " Not a word!");
+      alert(/*guessArray.toString() + */" Not a word!");
       console.log("Guess: " + word);
+      guessArray = [];
     }
     else {
       enterInput();
       for (let i = 1; i <= 5; i++) {
         let displayKey = document.getElementById("guess" + i);
-        displayKey.innerHTML = "";
-        displayKey.classList.remove("selected");
+        displayKey.value = "";
       }
       guessArray = [];
       //guessArray.splice(-1);
     }
   }
 }
-*/
+
+
+
+
+// you can use focus() to merge main and mouseInput branches
+
 
 function click(value) {
   alert(value);
